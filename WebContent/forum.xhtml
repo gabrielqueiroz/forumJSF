@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="stylesheet" type="text/css" href="estilo.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Forum Fatec - Principal</title>
+</h:head>
+<h:body>
+	<div align="right" class="logged">
+		Logado como <b><h:outputText
+				value="${usuarioMB.usuarioAtual.nome}" /></b> <br />
+		<h:form>
+			<h:commandButton value="Sair" action="${usuarioMB.sair()}"
+				class="myButton" />
+		</h:form>
+	</div>
+	<div align="center" class="default">
+		<h:form>
+			<p />
+			<b><h2>FORUM JSF</h2></b>
+			<p />
+			<p:messages closable="true"/>
+			<p:panel class="myFieldset" header="Todas as Perguntas">
+				<p:dataTable value="${perguntaMB.listaPerguntas()}" border="1"
+					cellpadding="10" var="p" paginator="true" rows="10"
+					paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+					rowsPerPageTemplate="5,10,15">
+					<p:column>
+					${perguntaMB.ownerCategoria(p)}
+						<f:facet name="header">Categoria</f:facet>
+					</p:column>
+					<p:column>
+					${p.titulo}				
+					<f:facet name="header">Pergunta</f:facet>
+					</p:column>
+					<p:column>
+						<h:outputText value="${p.datamens}">
+							<f:convertDateTime locale="pt-BR" pattern="dd/MM/yyyy" />
+						</h:outputText>
+						<f:facet name="header">Data</f:facet>
+					</p:column>
+					<p:column>
+						<h:graphicImage name="./ok.png" library="imagens"
+							style="max-width:20px;height:20px;"
+							rendered="#{p.situacao eq 'RESP'}" />
+						<h:graphicImage name="./nok.jpg" library="imagens"
+							style="max-width:20px;height:20px;"
+							rendered="#{p.situacao eq 'SEMRESP'}" onmouseup="Sem respostas" />
+						<f:facet name="header">Situacao</f:facet>
+					</p:column>
+					<p:column>
+					${perguntaMB.ownerPergunta(p)}
+						<f:facet name="header">Usuario</f:facet>
+					</p:column>
+					<p:column>
+						<h:commandLink action="${perguntaMB.visualizarPergunta(p)}"
+							value="Visualizar" />
+						<f:facet name="header">Ver mais</f:facet>
+					</p:column>
+				</p:dataTable>
+				<p />
+				<div align="right">
+					Não achou sua dúvida? <h:commandLink value="Faça sua própria pergunta" action="#{perguntaMB.novaPergunta()}" class="myLink"/> 
+				</div>
+			</p:panel>
+		</h:form>
+	</div>
+</h:body>
+</html>

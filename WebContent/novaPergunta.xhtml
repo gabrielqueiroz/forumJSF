@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="stylesheet" type="text/css" href="estilo.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Forum Fatec - Pergunta</title>
+</h:head>
+<h:body>
+	<div align="right" class="logged">
+		Logado como <b><h:outputText
+				value="${usuarioMB.usuarioAtual.nome}" /></b> <br />
+		<h:form>
+			<h:commandLink action="./forum.xhtml" class="myLink"
+				value="Voltar para a pagina inicial" />
+			<h:commandButton value="Sair" action="${usuarioMB.sair()}"
+				class="myButton" />
+		</h:form>
+	</div>
+	<div align="center" class="default">
+		<p>
+			<b><h2>FORUM JSF FATEC</h2></b>
+		</p>
+
+		<p:panel class="myFieldset" header="Nova Pergunta">
+			<div align="left">
+
+				<h:form>
+					<h:outputText value="Titulo" />
+					<p />
+					<h:inputText value="${perguntaMB.perguntaAtual.titulo}"
+						pt:placeholder="De um Titulo de até 100 caracteres."
+						style="width:90%" />
+					<p />
+					<h:outputText value="Escolha uma Categoria" />
+					<p />
+					<h:selectOneMenu value="${topicoMB.topicoAtual.id_topico}"
+						class="select">
+						<f:selectItem itemValue="1" itemLabel="Java" />
+						<f:selectItem itemValue="2" itemLabel="JavaScript" />
+						<f:selectItem itemValue="3" itemLabel="C" />
+						<f:selectItem itemValue="4" itemLabel="C#" />
+						<f:selectItem itemValue="5" itemLabel="C++" />
+						<f:selectItem itemValue="6" itemLabel="PHP" />
+						<f:selectItem itemValue="7" itemLabel="Ruby" />
+						<f:selectItem itemValue="8" itemLabel="Android" />
+						<f:selectItem itemValue="9" itemLabel="Python" />
+						<f:selectItem itemValue="10" itemLabel="Shell" />
+					</h:selectOneMenu>
+					<p />
+					<h:outputText value="Descrição da Pergunta" />
+					<p />
+					<h:inputTextarea value="${perguntaMB.perguntaAtual.descricao}"
+						pt:placeholder="Digite os detalhes de sua pergunta."
+						style="width:99.5%; height:210px; resize:none" />				
+					<p />
+					<div align="right">
+						<h:commandButton value="Criar Pergunta"
+							action="#{perguntaMB.adicionaPergunta()}" class="myButton" />
+						<p />
+					</div>
+				</h:form>
+			</div>
+		</p:panel>
+	</div>
+</h:body>
+</html>

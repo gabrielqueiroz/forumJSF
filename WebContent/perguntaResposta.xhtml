@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="stylesheet" type="text/css" href="estilo.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Forum Fatec - Pergunta/Resposta</title>
+</h:head>
+<h:body>
+	<div align="right" class="logged">	
+		Logado como <b><h:outputText
+				value="${usuarioMB.usuarioAtual.nome}" /></b><br />
+		<h:form>
+		<h:commandLink action="./forum.xhtml" class="myLink"
+							value="Voltar para a pagina inicial" />
+			<h:commandButton value="Sair" action="${usuarioMB.sair()}"
+				class="myButton" />
+		</h:form>
+	</div>	
+	<div align="center" class="default">
+	<h:form>
+		<p>
+			<b><h2>FORUM JSF FATEC</h2></b>
+		</p>
+		<p:messages closable="true"/>
+		<p:panel class="myFieldset" header="Visualização de Pergunta"
+			toggleable="true">
+			
+				<div align="left">
+					<h3>
+						<h:outputText value="${perguntaMB.perguntaAtual.titulo}" />
+					</h3>
+					<h:outputText value="${perguntaMB.perguntaAtual.descricao}"
+						class="pergunta" />
+					<p />
+					Sua Resposta:
+					<p />
+					<h:inputTextarea value="${respostaMB.respostaAtual.resposta}"
+						pt:placeholder="Digite os detalhes de sua resposta."
+						style="width:99.5%; height:100px; resize:none" />
+					<br />
+					<div align="right">
+						<h:commandButton value="Enviar sua Resposta" class="myButton"
+							action="#{respostaMB.adicionaResposta()}" />												
+					</div>
+					<p />
+				</div>
+			
+		</p:panel>
+		<p />
+		<p:panel header="Todas as Respostas" footer="Tem uma nova resposta? Envie sua resposta"
+			rendered="${not empty respostaMB.respostaPergunta()}"
+			class="myFieldset">
+			<p />
+			<div align="left">
+			<h:dataTable value="${respostaMB.respostaPergunta()}" border="0"
+				cellpadding="20" var="r" columnClasses="column1,column2">
+				<h:column>
+				${respostaMB.ownerResposta(r)}
+					
+				</h:column>
+				<h:column>
+					<h:inputTextarea value="${r.resposta}" class="pergunta"  readonly="true" style="width:100%; height:100%; resize:none" />
+					<br />
+				Em <h:outputText value="${r.datamens}">
+						<f:convertDateTime locale="pt-BR" pattern="dd/MM/yyyy" />
+					</h:outputText>
+					
+				</h:column>
+			</h:dataTable>
+			</div>
+		</p:panel>		
+		</h:form>
+	</div>
+</h:body>
+</html>

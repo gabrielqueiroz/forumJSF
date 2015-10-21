@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:pt="http://xmlns.jcp.org/jsf/passthrough"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="stylesheet" type="text/css" href="estilo.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Novo Usuario</title>
+</h:head>
+<h:body>
+	<div align="center" class="default">
+		<h:form>
+			<b>
+				<h2>FORUM JSF FATEC</h2>
+			</b>
+			<p:messages />
+			<p />
+			<h3>Criação de novo usuário</h3>
+			<p />
+			<p:panel class="myFieldset" header="Informações de Usuário">
+				<h:panelGrid columns="3">
+					<h:outputText value="Nome:*" />
+					<p:inputText value="${usuarioMB.usuarioAtual.nome}"
+						pt:placeholder="Nome e Sobrenome" id="txtNome"
+						validatorMessage="Campo Nome obrigatório" required="true">
+						<f:validateLength maximum="100" minimum="10" />
+					</p:inputText>
+					<p:messages for="txtNome" />
+					<h:outputText value="Data Nascimento:*" />
+					<p:calendar pattern="dd/MM/yyyy"
+						value="${usuarioMB.usuarioAtual.datanasc}"
+						pt:placeholder="31/12/1900" />
+					<p:messages for="txtData" />
+					<h:outputText value="País:*" />
+					<p:inputText value="${usuarioMB.usuarioAtual.pais}" id="txtPais"
+						validatorMessage="Campo Pais obrigatório" required="true">
+						<f:validateRequired />
+					</p:inputText>
+					<p:messages for="txtPais" />
+					<h:outputText value="Estado:*" />
+					<p:inputText value="${usuarioMB.usuarioAtual.estado}"
+						id="txtEstado" validatorMessage="Campo Estado obrigatório"
+						required="true">
+						<f:validateRequired />
+					</p:inputText>
+					<p:messages for="txtEstado" />
+					<h:outputText value="Email:*" />
+					<p:inputText value="${usuarioMB.usuarioAtual.email}" id="txtEmail"
+						validatorMessage="Campo Nome obrigatório" required="true"
+						pt:placeholder="email@example.com">
+						<f:validateRequired />
+					</p:inputText>
+					<p:messages for="txtEmail" />
+				</h:panelGrid>
+			</p:panel>
+			<p />
+			<p:panel class="myFieldset" header="Informações para Login">
+				<h:panelGrid columns="2">
+					<h:outputText value="Usuário:" />
+					<h:inputText value="${usuarioMB.usuarioAtual.usuario}"
+						validatorMessage="Usuário Inválido. O usuário deve conter no minimo 6 e no máximo 15 caracteres"
+						id="usuario">
+						<f:validateLength minimum="6" maximum="15" />
+					</h:inputText>
+					<h:outputText value="Senha:" />
+					<h:inputSecret value="${usuarioMB.usuarioAtual.senha}"
+						validatorMessage="Senha Inválida. A senha deve conterno no minimo 6 e no máximo 15 caracteres"
+						id="senha">
+						<f:validateLength minimum="6" maximum="15" />
+					</h:inputSecret>
+				</h:panelGrid>
+			</p:panel>
+			<p />
+			<h:commandButton value="Criar Novo Usuário"
+				action="#{usuarioMB.adicionar()}" class="myButton" />
+			<p />
+			<a href="./index.xhtml" class="myLink">Clique aqui para voltar
+				para a tela de login</a>
+			<p />
+		</h:form>
+	</div>
+</h:body>
+</html>

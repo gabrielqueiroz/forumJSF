@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<link rel="stylesheet" type="text/css" href="estilo.css" />
+	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1" />
+	<title>Forum Fatec</title>
+</h:head>
+<h:body>
+	<div align="center" class="default">
+		<h:graphicImage name="./logo.jpg" library="imagens"
+			style="max-width:100%;height:auto;" />
+		<b><h2>FORUM JSF FATEC</h2></b>
+		<p />
+		<p:messages />
+		<p:outputLabel value="${usuarioMB.mensagem}" />
+		<p />
+		<p:panel class="myFieldset" autoUpdate="true"
+			header="Informações para login" footer="Laboratório de Engenharia de Software 5º ADS Noite">
+			<br />
+			<h:form>
+				<h:panelGrid columns="2">
+					<h:outputText value="Usuário:" />
+					<h:inputText value="${usuarioMB.usuarioAtual.usuario}" />
+					<h:outputText value="Senha:" />
+					<h:inputSecret value="${usuarioMB.usuarioAtual.senha}" />
+				</h:panelGrid>
+				<h:commandButton value="Login" class="myButton"
+					action="#{usuarioMB.validaLogin()}" />
+				<br />
+			</h:form>
+		</p:panel>
+		<p>
+			<h3>Ainda não é cadastrado?</h3>
+			<a href="./novoUsuario.xhtml" class="myLink">Clique aqui para se cadastrar</a>
+		</p>
+	</div>
+
+</h:body>
+</html>
